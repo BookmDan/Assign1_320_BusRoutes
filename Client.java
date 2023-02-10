@@ -6,11 +6,65 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.net.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Client { // implements IRouteFinder
   public static void main(String[] args) throws IOException {
+    // String busROUTEURL = "https://www.communitytransit.org/busservice/schedules/route/880";
+    // URLConnection bus = new URL(busROUTEURL).openConnection();
+
+    // bus.setRequestProperty("user-Agent",
+    //     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+
+    // BufferedReader in2 = new BufferedReader(new InputStreamReader(bus.getInputStream()));
+
+    // String inputLine2 = "";
+
+    // String text2 = "";
+    // while ((inputLine2 = in2.readLine()) != null) {
+    //   text2 += inputLine2 + "\n";
+
+    // }
+    // // System.out.println(text2);
+    // in2.close();
+
+    // Pattern timeStart = Pattern.compile("<tr><td.*?>(.*?)</td><td.*?>(.*?)</td><td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td><td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td></tr>");
+
+    
+    // // Pattern timeStop = Pattern.compile("<td class=\"text-center\"(.*?)<a href=(.*?)>e</a></td>");
+
+
+    // Matcher travelTimeStart = timeStart.matcher(text2);
+    // // Matcher travelTimeStop = timeStop.matcher(text2);
+    
+    // // List<String> destRoutes = new LinkedList<>();
+
+    // // ArrayList<String> eachRouteTime = new ArrayList<>();
+
+    // // System.out.println("done");
+    // // SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+    // while (travelTimeStart.find()) {
+    //   System.out.println(travelTimeStart.group(1));
+    //   System.out.println("done");
+    //   System.out.println(travelTimeStart.group(13));
+
+    //   // Date t1 = format.parse(travelTimeStart);
+    //   // Date t2 = format.parse(travelTimeStop);
+
+    //   // long diff = t2.getTime() - t1.getTime();
+    //   // long diffMinutes = diff / (60 * 1000);         
+                       
+    //   // System.out.println("Time in minutes: " + diffMinutes + " minutes.");         
+
+    //   // eachRouteTime.add(travelTimeStart.group(3));
+    // }
+
+    // System.out.println("Bus Trips Lengths in Minutes are: ");
+//   }
+// }
 
     String TRANSIT_WEB_URL = "https://www.communitytransit.org/busservice/schedules/";
     URLConnection ct = new URL(TRANSIT_WEB_URL).openConnection();
