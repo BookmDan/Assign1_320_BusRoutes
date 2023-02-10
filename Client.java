@@ -32,8 +32,6 @@ public class Client { // implements IRouteFinder
     // System.out.println(text);
     in.close();
 
-    // Pattern destination = Pattern.compile("<h3>[a-zA-Z]</h3>");
-    // Pattern destination = Pattern.compile("<h3>(.*?) />(.*?)<hr (.*?) />");
     Pattern routes = Pattern.compile("<a href=\"/schedules/route/(.*?)\"(.*?)>(.*?)</a>");
 
     Matcher matcher = routes.matcher(text);
@@ -147,7 +145,7 @@ public class Client { // implements IRouteFinder
         String number = destination.get(i);
         String destUrl = TRANSIT_WEB_URL + "route/" + number;
         if (number.contains("/")) {
-          String newNumber = destination.get(i).replace("/", "-");
+          String newNumber =destination.get(i).replace("/", "-");  //  matcher.group(2);
           String destUrl2 = TRANSIT_WEB_URL + "route/" + newNumber;
           busRoutesNew.add(number);
           busRoutesNew.add(destUrl2);
