@@ -1,32 +1,30 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.net.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 class RouteFinder implements IRouteFinder {
-  // public Map<String, Map<String, String>> getBusRoutesUrls(final char destInitial) {
-  //   // scan the page 
-  //   // if letter matches char,
-  //   // put to map, name of city as key, and as value, the bus route #, and url 
+//   //Map<String, List<String>>
+//   // each routeTime calculated in an arraylist
+//   public static ArrayList<Long> eachRouteTime = new ArrayList<>();
+// // timeMap for times 
+//   public Map<String, List<String>> timeMap = new HashMap<String, List<String>>();
 
-  // }
-
-  // public ArrayList<String> busRoutesNew = new ArrayList<>();
-  // public Map<String, List<String>> busRouteUrl = new HashMap<String, List<String>>();
-
-  //Map<String, List<String>>
 
   public static String getUrlText(String urlString) {
     // String TRANSIT_WEB_URL = "https://www.communitytransit.org/busservice/schedules/";
     // // URLConnection ct = new URL(TRANSIT_WEB_URL).openConnection();
     String text = "";
     try {
-      // String TRANSIT_WEB_URL = "https://www.communitytransit.org/busservice/schedules/";
+      String TRANSIT_WEB_URL = "https://www.communitytransit.org/busservice/schedules/";
       URLConnection ct = new URL(TRANSIT_WEB_URL).openConnection();
   
       ct.setRequestProperty("user-Agent",
@@ -187,12 +185,114 @@ class RouteFinder implements IRouteFinder {
   // System.out.println(busRouteUrl.get("Bellevue"));
 
   @Override
-  public Map<String, List<String>>  getBusRouteTripsLengthsInMinutesToAndFromDestination(final List<String> routeUrls) {
+  public Map<String, List<String>> getBusRouteTripsLengthsInMinutesToAndFromDestination(final List<String> routeUrls) {
     // TODO Auto-generated method stub
     //second set of pattern match 
-    // get new Url with helper
-    // String text = getUrlText(TRANSIT_WEB_URL +  getBusRoutesUrls(0).busRoutesNew);
-    // String text2 = text + getBusRoutesUrls(0).busRoutesNew
+
+    // String urlString = "https://www.communitytransit.org/busservice/schedules/route/532-535";
+    // // String urlString = TRANSIT_WEB_URL + "route/532-535";
+    // // String urlString = TRANSIT_WEB_URL + getBusRoutesUrls('b').get("Bellevue");
+    // // getBusRoutesUrls.busRouteUrl.get("Bellevue");
+    // // get new Url with helper
+    // String text = getUrlText(urlString);
+
+    // System.out.println(text);
+    // // String text2 = text + getBusRoutesUrls(0).busRoutesNew
+
+    String text2 = "";
+    Map<String, List<String>> timeMap = new HashMap<String, List<String>>();
+
+    // for each() routeurl
+    for (String string : routeUrls) {
+      try {
+
+        String busROUTEURL = string;
+        URLConnection bus = new URL(busROUTEURL).openConnection();
+
+        bus.setRequestProperty("user-Agent",
+            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+
+        BufferedReader in2 = new BufferedReader(new InputStreamReader(bus.getInputStream()));
+
+        String inputLine2 = "";
+        while ((inputLine2 = in2.readLine()) != null) {
+          text2 += inputLine2 + "\n";
+
+        }
+        // System.out.println(text2);
+        in2.close();
+      } catch (Exception e) {
+        // TODO: handle exception
+      }
+
+      /**********  this method is not working    *********** */
+
+      // pattern match to extract just 'weekdays'
+
+      Pattern justGetWeekDay = Pattern.compile("<div id=\"Weekday532-535nb\" style class = \"RouteChart\">(.*?)</div>");
+
+      Matcher weekDayMatcher = justGetWeekDay.matcher(text2);
+
+      ArrayList<String> weekDayDiv = new ArrayList<>();
+
+      while (weekDayMatcher.find()) {
+        weekDayDiv.add(weekDayMatcher.group(0));
+      }
+      System.out.println(weekDayDiv);
+
+      // ArrayList<String> times = new ArrayList<>();
+
+      // pattern match to extract just 'times'
+      for (String timesText : weekDayDiv) {
+        Pattern timesPattern = Pattern.compile("(<td(.*?)>(.*?)(<a h.*?>)*(.*?)(</a>)*</td>)*", Pattern.DOTALL);
+        Matcher timeMatcher = timesPattern.matcher(timesText);
+        // System.out.println("err");
+        // times.add(0, "Hello");
+
+        while (timeMatcher.find()) {
+          // System.out.println("err");
+
+          // set time to date format
+          SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+          Date t1;
+          try {
+            t1 = (Date) format.parse(timeMatcher.group(1));
+            Date t2 = (Date) format.parse(timeMatcher.group(13));
+
+            long diff = t2.getTime() - t1.getTime();
+            long diffMinutes = diff / (60 * 1000);
+  
+            System.out.println("Time in minutes: " + diffMinutes + " minutes.");
+            eachRouteTime.add(diffMinutes);
+
+          } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+    return timeMap;
+  }
+
+  public static String printLine(Map<String, List<String>> destMap) {
+    BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+    // int T= Integer.parseInt(inp.readLine()); // for taking a number as an input 
+   
+    try {
+      String str = inp.readLine(); // for taking a string as an input
+
+      for (int i = 0; i < destMap.size(); i++) {
+        if (str.equals(destMap.get(i))) {
+          System.out.println("Bus Trips Lengths in Minutes are: ");
+          System.out.println(destMap.get(i));
+          System.out.println("- Bellevue Transit Center=");
+          System.out.println(eachRouteTime);
+        }
+      }
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
     return null;
   }
 }

@@ -2,6 +2,10 @@ import java.util.*;
 
 public interface IRouteFinder {
     String TRANSIT_WEB_URL = "https://www.communitytransit.org/busservice/schedules/";
+      // each routeTime calculated in an arraylist
+    public static ArrayList<Long> eachRouteTime = new ArrayList<>();
+  // timeMap for times 
+    public Map<String, List<String>> timeMap = new HashMap<String, List<String>>();
 
     /**
      * The function returns the route URLs for a specific destination initial using the URL text
