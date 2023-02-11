@@ -10,7 +10,7 @@ public interface IRouteFinder {
      *       value is an inner map with a pair of route ID and the route page URL
      *       (e.g. of a map element <Brier, <111, https://www.communitytransit.org/busservice/schedules/route/111>>)
      */
-    Map<String, Map<String, String>> getBusRoutesUrls(final char destInitial);
+    Map<String, List<String>> getBusRoutesUrls(final char destInitial);
 
     /**
      * The function returns list of trip lengths in minutes, grouped by bus route and destination To/From
@@ -21,7 +21,7 @@ public interface IRouteFinder {
      *        and value is the trips lengths in minutes
      *        (e.g. of a map element <111 - To Brier, [60, 50, 40, ...]>)
      */
-    Map<String, List<Long>> getBusRouteTripsLengthsInMinutesToAndFromDestination(final Map<String, String> destinationBusesMap);
+    Map<String, List<String>> getBusRouteTripsLengthsInMinutesToAndFromDestination(final List<String> destinationBusesMap);
 
 }
 
