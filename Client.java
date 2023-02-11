@@ -18,41 +18,10 @@ public class Client { // implements IRouteFinder
     
     finder.getBusRouteTripsLengthsInMinutesToAndFromDestination(routeUrls.get("Bellevue"));
 
-    finder.printLine(timeMap);
+    // does not work 
+    // finder.printLine(routeUrls.get("Bellevue"));
     
     // finder.getBusRouteTripsLengthsInMinutesToAndFromDestination(null);
-
-    // currently returns all, can't seem to just pull one city destination. 
-    /* if you comment below, the code runs. I have not yet tested the bus trip lenghts 
-    in minutes portion of this assignment */
-
-
-    /* *************************** DOES NOT WORK BELOW THIS LINE ***************** */
-    // get minutes destination 
-    // Map<String, List<Long>>
-    // 
-    
-
-    // System.out.println(times);
-    // pattern match given section 
-    // not sure how to store in this in a String
-
-
-
-
-    // Pattern timeStart = Pattern.compile(
-    //     "<td.*?>(.*?)</td>\\s<td.*?>(.*?)</td>\\s<td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td>\\s<td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td>");
-    
-    // // Pattern timeStop = Pattern.compile("<td.*?>(.*?)</td>\\s<td.*?>(.*?)</td>\\s<td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td>\\s<td.*?>(.*?)(<a h.*?>)*(.*?)(</a>)*</td>");
-
-
-    // Matcher travelTimeStart = timeStart.matcher(text2);
-
-
-    // Matcher travelTimeStop = timeStart.matcher(text2);
-    
-    // // List<String> destRoutes = new LinkedList<>();
-
   }
 }
     

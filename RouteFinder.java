@@ -238,7 +238,7 @@ class RouteFinder implements IRouteFinder {
       while (weekDayMatcher.find()) {
         weekDayDiv.add(weekDayMatcher.group(0));
       }
-      System.out.println(weekDayDiv);
+      // System.out.println(weekDayDiv);
 
       // ArrayList<String> times = new ArrayList<>();
 
@@ -287,12 +287,13 @@ class RouteFinder implements IRouteFinder {
           System.out.println("Bus Trips Lengths in Minutes are: ");
           System.out.println(destMap.get(i));
           System.out.println("- Bellevue Transit Center=");
-          System.out.println(eachRouteTime);
+        
         }
       }
     } catch (Exception e) {
       // TODO: handle exception
     }
+    System.out.println(eachRouteTime);
     return null;
   }
 }
